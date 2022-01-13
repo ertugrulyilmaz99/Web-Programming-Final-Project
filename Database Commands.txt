@@ -1,0 +1,44 @@
+CREATE TABLE Student(
+	email VARCHAR PRIMARY KEY,
+	name VARCHAR,
+	surname VARCHAR,
+	password VARCHAR,
+	isApproved INTEGER DEFAULT 0
+);
+
+CREATE TABLE Scheduled(
+	id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+	date DATE,
+	time TIME,
+	isApprovedByInstructor INTEGER DEFAULT 0,
+	isCancelled INTEGER DEFAULT 0,
+	studentEmail VARCHAR,
+	instructorEmail VARCHAR
+);
+
+CREATE TABLE Instructor(
+	email VARCHAR PRIMARY KEY,
+	name VARCHAR,
+	surname VARCHAR,
+	password VARCHAR,
+	isApproved INTEGER DEFAULT 0
+);
+
+CREATE TABLE Admin(
+	email VARCHAR PRIMARY KEY,
+	name VARCHAR,
+	surname VARCHAR,
+	password VARCHAR
+);
+
+--******************************************************--
+--******************************************************--
+--******************************************************--
+--******************************************************--
+--******************************************************--
+
+ALTER TABLE Scheduled
+ADD FOREIGN KEY (studentEmail) REFERENCES Student(email);
+
+ALTER TABLE Scheduled
+ADD FOREIGN KEY (instructorEmail) REFERENCES Instructor(email);

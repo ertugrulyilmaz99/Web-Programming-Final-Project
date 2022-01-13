@@ -1,0 +1,17 @@
+//for importing the psql command line tools on mac with postgres app
+
+sudo mkdir -p /etc/paths.d &&
+echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+
+OR
+
+export PATH=/Applications/Postgres.app/Contents/Versions/13/bin:$PATH
+
+
+
+
+TO BACKUP AND RESTORE THE DATABASE:
+
+BACKUP: pg_dump databasename > backup //exports the backup to current folder
+
+RESTORE: psql databasename < backup //backup must be in terminal folder

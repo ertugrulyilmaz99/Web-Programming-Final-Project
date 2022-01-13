@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title> Customer Login Form </title>
+    <link rel="stylesheet" href="./static/accountform.css">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        alert('{{message|tojson}}');
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+
+
+
+</head>
+
+<body>
+    <div class="center">
+        <h1>Register</h1>
+        <form method="post">
+            <div class="txt_field">
+                <input type="firstname" name="inputName" required>
+                <span></span>
+                <label>First Name</label>
+            </div>
+            <div class="txt_field">
+                <input type="lastname" name="inputSurname" required>
+                <span></span>
+                <label>Last Name</label>
+            </div>
+            <div class="txt_field">
+                <input type="email" name="inputEmail" required>
+                <span></span>
+                <label>Email</label>
+            </div>
+
+            <div class="txt_field">
+                <input type="password" name="inputPassword" required>
+                <span></span>
+                <label>Password</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" required>
+                <span></span>
+                <label>Confirm Password</label>
+            </div>
+
+
+
+            <button type="submit" class="button button3">Register</button>
+
+        </form>
+
+
+</body>
+
+</html>

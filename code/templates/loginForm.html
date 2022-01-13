@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title> Customer Login Form </title>
+    <link rel="stylesheet" href="/static/login.css">
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        alert('{{message|tojson}}');
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+
+
+</head>
+
+<body>
+    <div class="center">
+        <h1>Login</h1>
+        <form method="post">
+            <ul>
+                <li>
+                    <a class="active"><input checked="checked" type="radio" id="student" name="selectedRole" value="student">
+                        <label for="student">Student</label></a>
+
+                </li>
+                <li>
+                    <a><input type="radio" id="instructor" name="selectedRole" value="instructor">
+                        <label for="instructor">Instructor</label></a>
+
+                </li>
+                <li>
+                    <a><input type="radio" id="admin" name="selectedRole" value="admin">
+                        <label for="admin">Admin</label></a>
+
+                </li>
+
+            </ul>
+            <div class="txt_field">
+                <input type="email" name="inputEmail">
+                <span></span>
+                <label>Email</label>
+            </div>
+            <div class="txt_field">
+                <input type="password" name="inputPassword">
+                <span></span>
+                <label>Password</label>
+            </div>
+            <div class="pass">Forgot Password?</div>
+            <button class="button button3" name="loginButton">Login</button>
+            <div class="signup_link">
+                Not a member? <button type="submit" id="signupButton" name="signupButton">Signup</button>
+        </form>
+
+</body>
+
+</html>

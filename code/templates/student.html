@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Student Page</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./static/studentAndInstructor.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm py-3 navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <form method="post">
+                            <button type="submit" name="logout" class="nav-link btn btn-light"
+                                style="color: brown; font-weight: bolder; font-size: larger;">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
+                <br>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <br>
+        <div class="card bg-dark text-white">
+            <div class="card-body align-self-center" style="font-size: 40px;">Student Page</div>
+        
+            <div class="card bg-light text-dark"><br>
+                
+                <div class="container mt-1"><br>
+                    <h2 class="card-body">Courses</h2>
+                    <form method="post">
+                        <table id="Course" class="table table-hover" class="stripe row-border order-column"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Course ID</th>
+                                    <th>Course Time</th>
+                                    <th>Cancel</th>
+                                    <th>Instructor</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="coursesTable">
+
+                            </tbody>
+
+                        </table>
+                    </form>
+                    <br>
+                    <h2 class="card-body">Instructors</h2>
+                    <form method="post">
+                        <select id="instructorSelect" class="form-select" aria-label="Default select example"
+                            width="100%" name="selectedInstructor">
+                        </select>
+                        <br>
+                        <h2 class="card-body">Available Courses</h2>
+                        <br>
+
+                        <input type="date" id="day" name="day">
+                        <button type="submit" name="showButton" id="DayButton" class="btn btn-dark">Show</button>
+                    </form>
+                    <form method="post">
+                        <table id="Course" class="table table-hover" class="stripe row-border order-column"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Course ID</th>
+                                    <th>Course Time</th>
+                                    <th>Take Course</th>
+                                    <th>Instructor</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hoursBody">
+                                <tr>
+                                    <td>Course ID</td>
+                                    <td>Course Time</td>
+                                    <td><button type="button" id="TakeCourse" class="btn btn-dark">Take Course</button>
+                                    </td>
+                                    <td>Instructor</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br>
+    </div>
+
+    <!-- Gets the instructors -->
+    <script>
+        instructors = {{ instructors | tojson }};
+        console.log(instructors)
+
+        var x = document.getElementById("instructorSelect");
+        var inner = ''
+        instructors.forEach(element => {
+            inner += '<option value="' + element[0] + '">' + element[1] + ' ' + element[2] + '</option >';
+        });
+        x.innerHTML = inner;
+    </script>
+    <!-- 
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script> -->
+
+    <script>
+        availableHours = {{ availableHours | tojson }};
+        instructorName = {{ instructorName | tojson }}
+        console.log(availableHours);
+
+        var x = document.getElementById("hoursBody");
+        var inner = ''
+        availableHours.forEach(element => {
+            inner += '<tr><td>Course ID</td><td>' + element + '</td><td><button name="takeCourseButton" type="submit" id="TakeCourse" class="btn btn-dark" value=" ' + element + ' ">Take Course</button></td><td>' + instructorName + '</td></tr>';
+        });
+        x.innerHTML = inner;
+
+    </script>
+
+    <script>
+        studentCourses = {{ studentCourses | tojson }}
+
+        var x = document.getElementById("coursesTable");
+        var inner = ''
+        studentCourses.forEach(element => {
+            inner += '<tr><td>' + element[0] + '</td><td>' + element[1] + ' ' + element[2] + '</td><td><button type="submit" name="courseCancelButton" id="Cancel" value= "' + element[0] + '" class="btn btn-dark">Cancel</button></td><td>' + element[6] + '</td></tr>';
+        });
+        x.innerHTML = inner;
+
+    </script>
+
+
+
+</body>
+
+</html>

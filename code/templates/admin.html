@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Page</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="static/studentAndInstructor.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm py-3 navbar-dark bg-dark">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <form method="post">
+                            <button type="submit" name="logout" class="nav-link btn btn-light"
+                                style="color: brown; font-weight: bolder; font-size: larger;">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
+                <br>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <br>
+        <div class="card bg-dark text-white">
+            <div class="card-body align-self-center" style="font-size: 40px;">Admin Page</div>
+            <br>
+            <div class="card bg-light text-dark"><br>
+                <br>
+                <div class="container mt-1"><br>
+                    <h2 class="card-body">Users</h2>
+                    <form method="post">
+                        <table id="Course" class="table table-hover" class="stripe row-border order-column"
+                            width="100%">
+                            <thead>
+                                <tr>
+                                    <th>E-mail</th>
+                                    <th>Name Surname</th>
+                                    <th>Approve</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allUsers">
+
+                            </tbody>
+                        </table>
+                    </form>
+                    <br>
+
+
+                    <h2 class="card-body">Courses</h2>
+                    <div class="center">
+                        <form method="post">
+                            <input type="date" id="StartDay" name="startDay">
+                            <input type="date" id="EndDay" name="endDay">
+                            <button type="submit" id="Show" name="specificPeriodButton"
+                                class="btn btn-dark">Show</button>
+                        </form>
+                    </div>
+                    <br>
+                    <br>
+                    <table id="Course" class="table table-hover" class="stripe row-border order-column" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Course ID</th>
+                                <th>Course Time</th>
+                                <th>Student</th>
+                                <th>Instructor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="specificCourses">
+
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br><br>
+    </div>
+
+    <script>
+        allUsers = {{ allUsers | tojson }}
+
+        var x = document.getElementById("allUsers");
+        var inner = ''
+        allUsers.forEach(element => {
+            if (element[4] == 0) {
+                inner += '<tr><td>' + element[0] + '</td><td>' + element[1] + ' ' + element[2] + '</td><td><button type="submit" name="ApproveButton" id="Approve" value= "' + element[0] + '" class="btn btn-dark">Approve</button></td></tr>';
+            } else {
+                inner += '<tr><td>' + element[0] + '</td><td>' + element[1] + ' ' + element[2] + '</td><td>APPROVED</td></tr>';
+            }
+        });
+
+        x.innerHTML = inner;
+
+    </script>
+
+    <script>
+        specificCourses = {{ specificCourses | tojson }}
+        console.log(specificCourses)
+        var x = document.getElementById("specificCourses");
+        var inner = ''
+        specificCourses.forEach(element => {
+            inner += '<tr><td>' + element[0] + '</td><td>' + element[1] + ' ' + element[2] + '</td><td>' + element[5] + '</td><td>' + element[6] + '</td></tr>';
+        });
+
+        x.innerHTML = inner;
+
+    </script>
+
+</body>
+
+</html>
